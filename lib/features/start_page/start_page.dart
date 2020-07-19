@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:whiteboard_demo/features/whiteboard_page/whiteboard_page.dart';
 
 class StartPage extends StatefulWidget {
   @override
@@ -25,9 +26,8 @@ class _StartPageState extends State<StartPage> {
               ),
               const SizedBox(height: 8),
               RaisedButton(
-                onPressed: () {
-                  // TODO: Navigate to WhiteboardPage
-                },
+                onPressed: () => Navigator.of(context)
+                    .push(WhiteboardPageRoute(_controller.text)),
                 child: Text('Connect'),
               ),
             ],
