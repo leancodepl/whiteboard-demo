@@ -8,16 +8,16 @@ class WhiteboardView extends StatelessWidget {
   const WhiteboardView({
     Key key,
     @required this.lines,
-    @required this.onLineStart,
-    @required this.onLinePoint,
-    @required this.onLineEnd,
+    @required this.onGestureStart,
+    @required this.onGestureUpdate,
+    @required this.onGestureEnd,
   })  : assert(lines != null),
         super(key: key);
 
   final List<Line> lines;
-  final ValueChanged<Point> onLineStart;
-  final ValueChanged<Point> onLinePoint;
-  final VoidCallback onLineEnd;
+  final ValueChanged<Point> onGestureStart;
+  final ValueChanged<Point> onGestureUpdate;
+  final VoidCallback onGestureEnd;
 
   Widget build(BuildContext context) => Material(
         elevation: 4,
@@ -25,11 +25,11 @@ class WhiteboardView extends StatelessWidget {
           aspectRatio: aspectRatio,
           child: LayoutBuilder(
             builder: (context, constraints) => GestureDetector(
-              onPanDown: (details) => onLineStart?.call(
+              onPanDown: (details) => onGestureStart?.call(
                   _getOffsetPoint(details.localPosition, constraints.biggest)),
-              onPanUpdate: (details) => onLinePoint(
+              onPanUpdate: (details) => onGestureUpdate(
                   _getOffsetPoint(details.localPosition, constraints.biggest)),
-              onPanEnd: (_) => onLineEnd?.call(),
+              onPanEnd: (_) => onGestureEnd?.call(),
               child: CustomPaint(
                 foregroundPainter: WhiteboardPainer(lines),
                 isComplex: true,
@@ -41,8 +41,8 @@ class WhiteboardView extends StatelessWidget {
       );
 
   Point _getOffsetPoint(Offset offset, Size size) => Point(
-        (offset.dx / size.width).clamp(0, 1),
-        (offset.dy / size.width).clamp(0, 1 / aspectRatio),
+        (offset.dx / size.width).clamp(0, 1).toDouble(),
+        (offset.dy / size.width).clamp(0, 1 / aspectRatio).toDouble(),
       );
 }
 

@@ -5,13 +5,11 @@ part 'line.g.dart';
 
 @JsonSerializable(anyMap: true, explicitToJson: true)
 class Line {
-  Line(this.points);
+  const Line(this.points);
 
   factory Line.fromJson(Map json) => _$LineFromJson(json);
 
   final List<Point> points;
-
-  void addPoint(Point point) => points.add(point);
 
   Map<String, dynamic> toJson() => _$LineToJson(this);
 }
