@@ -30,15 +30,16 @@ class WhiteboardView extends StatelessWidget {
               onPanUpdate: (details) => onGestureUpdate(
                 _getOffsetPoint(details.localPosition, constraints.biggest),
                 _getOffsetPoint(
-                    details.localPosition
-                        .translate(-details.delta.dx, -details.delta.dy),
-                    constraints.biggest),
+                  details.localPosition
+                      .translate(-details.delta.dx, -details.delta.dy),
+                  constraints.biggest,
+                ),
               ),
               onPanEnd: (_) => onGestureEnd?.call(),
               child: CustomPaint(
-                foregroundPainter: WhiteboardPainer(lines),
+                painter: WhiteboardPainer(lines),
                 isComplex: true,
-                child: Container(color: Colors.white),
+                willChange: true,
               ),
             ),
           ),

@@ -70,8 +70,6 @@ class WhiteboardViewmodel extends ChangeNotifier {
   void _remove(Point point1, [Point point2]) {
     point2 ??= point1;
 
-    print('${point1.x} ${point1.y} ${point2.x} ${point2.y}');
-
     final lines = _content.lines.where((line) {
       if (line.points.length == 1) {
         final point = line.points.first;
