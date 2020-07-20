@@ -16,7 +16,7 @@ class WhiteboardView extends StatelessWidget {
 
   final List<Line> lines;
   final ValueChanged<Point> onGestureStart;
-  final ValueChanged<Point> onGestureUpdate;
+  final void Function(Point point, Point previousPoint) onGestureUpdate;
   final VoidCallback onGestureEnd;
 
   Widget build(BuildContext context) => Material(
@@ -28,7 +28,12 @@ class WhiteboardView extends StatelessWidget {
               onPanDown: (details) => onGestureStart?.call(
                   _getOffsetPoint(details.localPosition, constraints.biggest)),
               onPanUpdate: (details) => onGestureUpdate(
-                  _getOffsetPoint(details.localPosition, constraints.biggest)),
+                _getOffsetPoint(details.localPosition, constraints.biggest),
+                _getOffsetPoint(
+                    details.localPosition
+                        .translate(-details.delta.dx, -details.delta.dy),
+                    constraints.biggest),
+              ),
               onPanEnd: (_) => onGestureEnd?.call(),
               child: CustomPaint(
                 foregroundPainter: WhiteboardPainer(lines),
