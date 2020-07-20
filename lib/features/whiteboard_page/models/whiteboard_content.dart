@@ -14,8 +14,5 @@ class WhiteboardContent {
   final String id;
   final List<Line> lines;
 
-  WhiteboardContent addLine(String id, Line line) =>
-      WhiteboardContent(id, [...lines, line]);
-
   Map<String, dynamic> toJson() => _$WhiteboardContentToJson(this);
 }

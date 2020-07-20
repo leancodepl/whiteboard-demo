@@ -92,6 +92,7 @@ class WhiteboardViewmodel extends ChangeNotifier {
 
     if (lines.length != _content.lines.length) {
       _content = WhiteboardContent(Uuid().v1(), lines);
+      _whiteboardRef.setData(_content.toJson());
       notifyListeners();
     }
   }
