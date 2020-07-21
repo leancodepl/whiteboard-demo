@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:whiteboard_demo/features/whiteboard_page/whiteboard_viewmodel.dart';
+import 'package:whiteboard_demo/features/whiteboard_page/whiteboard_view_model.dart';
 import 'package:whiteboard_demo/features/whiteboard_page/widgets/tool_buttons.dart';
 import 'package:whiteboard_demo/features/whiteboard_page/widgets/whiteboard_view.dart';
 
@@ -10,7 +10,7 @@ class WhiteboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<WhiteboardViewmodel>(
+    return Consumer<WhiteboardViewModel>(
       builder: (context, viewmodel, _) => Scaffold(
         body: SafeArea(
           child: Padding(
@@ -38,10 +38,10 @@ class WhiteboardPage extends StatelessWidget {
 class WhiteboardPageRoute extends MaterialPageRoute<void> {
   WhiteboardPageRoute(String id)
       : super(
-          builder: (context) => ChangeNotifierProvider<WhiteboardViewmodel>(
+          builder: (context) => ChangeNotifierProvider<WhiteboardViewModel>(
             create: (context) {
               final firestore = Provider.of<Firestore>(context, listen: false);
-              return WhiteboardViewmodel(firestore, id);
+              return WhiteboardViewModel(firestore, id);
             },
             child: WhiteboardPage(),
           ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:whiteboard_demo/features/whiteboard_page/whiteboard_viewmodel.dart';
+import 'package:whiteboard_demo/features/whiteboard_page/whiteboard_view_model.dart';
 
 class ToolButtons extends StatelessWidget {
-  final WhiteboardViewmodel viewmodel;
+  final WhiteboardViewModel viewmodel;
 
   const ToolButtons({Key key, @required this.viewmodel})
       : assert(viewmodel != null);

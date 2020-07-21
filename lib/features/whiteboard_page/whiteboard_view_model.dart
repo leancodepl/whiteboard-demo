@@ -10,8 +10,8 @@ import 'package:whiteboard_demo/features/whiteboard_page/models/whiteboard_conte
 
 enum Tool { pen, eraser }
 
-class WhiteboardViewmodel extends ChangeNotifier {
-  WhiteboardViewmodel(this._firestore, this._id) {
+class WhiteboardViewModel extends ChangeNotifier {
+  WhiteboardViewModel(this._firestore, this._id) {
     _whiteboardRef = _firestore.collection('whiteboards').document(_id);
     _subscription = _whiteboardRef.snapshots().listen(_onContentSnapshot);
   }
@@ -73,7 +73,7 @@ class WhiteboardViewmodel extends ChangeNotifier {
     final lines = _content.lines.where((line) {
       if (line.points.length == 1) {
         final point = line.points.first;
-        return _rectanglesInterect(
+        return _rectanglesIntersect(
           Point(point.x - 0.01, point.y - 0.01),
           Point(point.x + 0.01, point.y + 0.01),
           point1,
@@ -81,7 +81,7 @@ class WhiteboardViewmodel extends ChangeNotifier {
         );
       } else {
         for (var i = 0; i < line.points.length - 1; i++) {
-          if (_rectanglesInterect(
+          if (_rectanglesIntersect(
               line.points[i], line.points[i + 1], point1, point2)) {
             return false;
           }
@@ -97,7 +97,7 @@ class WhiteboardViewmodel extends ChangeNotifier {
     }
   }
 
-  bool _rectanglesInterect(
+  bool _rectanglesIntersect(
     Point point11,
     Point point12,
     Point point21,
