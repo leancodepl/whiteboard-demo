@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:whiteboard_demo/features/whiteboard_page/models/line.dart';
 import 'package:whiteboard_demo/features/whiteboard_page/models/point.dart';
@@ -59,19 +61,17 @@ class WhiteboardPainer extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final _paint = Paint()
+    final paint = Paint()
       ..color = Colors.black
       ..strokeCap = StrokeCap.round
       ..strokeWidth = size.width / 100;
 
     for (final line in _lines) {
-      for (var j = 0; j < line.points.length - 1; j++) {
-        canvas.drawLine(
-          _getPointOffset(line.points[j], size),
-          _getPointOffset(line.points[j + 1], size),
-          _paint,
-        );
-      }
+      canvas.drawPoints(
+        PointMode.polygon,
+        line.points.map((point) => _getPointOffset(point, size)).toList(),
+        paint,
+      );
     }
   }
 
